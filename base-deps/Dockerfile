@@ -7,6 +7,8 @@ FROM ${BASE_IMAGE}
 
 # FROM directive resets ARG
 
+
+ADD sources.list /etc/apt/sources.list
 ARG BASE_IMAGE
 
 # If this arg is not "autoscaler" then no autoscaler requirements will be included
@@ -41,6 +43,7 @@ ENV HOME=/home/user
 # images for Python 3.10.10
 
 # <https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${HOSTTYPE}.sh>
+ADD pip.conf /home/user/.pip/pip.conf
 
 RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     && sudo apt-get install -y \
@@ -50,6 +53,14 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     && wget \
     --quiet "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${HOSTTYPE}.sh" \
     -O /tmp/miniconda.sh \
+    # -b           run install in batch mode (without manual intervention),
+    # it is expected the license terms (if any) are agreed upon
+    # -f           no error if install prefix already exists
+    # -h           print this help message and exit
+    # -p PREFIX    install prefix, defaults to /home/user/miniconda3, must not contain spaces.
+    # -s           skip running pre/post-link/install scripts
+    # -u           update an existing installation
+    # -t           run package tests after installation (may install conda-build)
     && /bin/bash /tmp/miniconda.sh -b -u -p $HOME/anaconda3 \
     && $HOME/anaconda3/bin/conda init \
     && echo 'export PATH=$HOME/anaconda3/bin:$PATH' >> /home/user/.bashrc \
