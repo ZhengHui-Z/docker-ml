@@ -13,7 +13,6 @@ ARG BASE_IMAGE
 
 # If this arg is not "autoscaler" then no autoscaler requirements will be included
 
-ARG AUTOSCALER="autoscaler"
 ENV TZ=Asia/Shanghai
 
 # TODO(ilr) $HOME seems to point to result in "" instead of "/home/user"
