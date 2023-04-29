@@ -47,6 +47,7 @@ ADD pip.conf /home/user/.pip/pip.conf
 
 RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     && sudo apt-get install -y \
+    vim \
     git \
     wget \
     screen \
