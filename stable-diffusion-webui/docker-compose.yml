@@ -7,3 +7,10 @@ services:
     ports:
       - 0.0.0.0:7860:7860
     command: ["bash", "/home/user/stable-diffusion-webui/webui.sh","--listen", "--enable-insecure-extension-access", "--gradio-queue", "--opt-sdp-attention"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
