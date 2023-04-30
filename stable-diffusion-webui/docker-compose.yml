@@ -3,7 +3,7 @@ services:
   stable-diffusion-webui:
     image: ml/base-deps:cuda-11.8.0-cudnn8-devel-ubuntu22.04
     volumes:
-      -/mnt/devdata/zzh/AI/stable-diffusion-webui:/home/user/stable-diffusion-webui
+      - /mnt/devdata/zzh/AI/stable-diffusion-webui:/home/user/stable-diffusion-webui
     ports:
       - 0.0.0.0:7860:7860
     command: ["bash", "~/stable-diffusion-webui/webui.sh","--listen", "--enable-insecure-extension-access", "--gradio-queue", "--opt-sdp-attention"]
