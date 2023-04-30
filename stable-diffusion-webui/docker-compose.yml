@@ -6,7 +6,7 @@ services:
       - /mnt/devdata/zzh/AI/stable-diffusion-webui:/home/user/stable-diffusion-webui
     ports:
       - 0.0.0.0:7860:7860
-    command: ["/home/user/stable-diffusion-webui/venv/bin/python", "/home/user/stable-diffusion-webui/webui.py","--listen", "--enable-insecure-extension-access", "--gradio-queue", "--opt-sdp-attention"]
+    command: ["bash", "/home/user/stable-diffusion-webui/webui.sh","--listen", "--enable-insecure-extension-access", "--gradio-queue", "--opt-sdp-attention"]
     deploy:
       resources:
         reservations:
