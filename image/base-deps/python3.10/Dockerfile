@@ -2,7 +2,7 @@
 
 # The GPU options are NVIDIA CUDA developer images
 
-ARG BASE_IMAGE="nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04"
+ARG BASE_IMAGE="nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04"
 FROM ${BASE_IMAGE}
 
 # FROM directive resets ARG
@@ -19,7 +19,7 @@ ENV TZ=Asia/Shanghai
 
 ENV PATH "/home/user/anaconda3/bin:$PATH"
 ARG DEBIAN_FRONTEND=noninteractive
-ARG PYTHON_VERSION=3.10.10
+# ARG PYTHON_VERSION=3.10.10
 
 ARG HOSTTYPE=${HOSTTYPE:-x86_64}
 
@@ -49,6 +49,7 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     vim \
     git \
     wget \
+    curl \
     screen \
     && wget \
     --quiet "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${HOSTTYPE}.sh" \
