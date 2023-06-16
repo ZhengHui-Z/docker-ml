@@ -3,6 +3,9 @@
 # The GPU options are NVIDIA CUDA developer images
 
 ARG BASE_IMAGE="nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04"
+# ARG PYTHON_VERSION=latest
+# ARG PYTHON_VERSION=py39_23.3.1-0
+# ARG PYTHON_VERSION=py38_23.1.0-1
 FROM ${BASE_IMAGE}
 
 # FROM directive resets ARG
@@ -28,6 +31,8 @@ ARG USER_GID=100
 
 RUN apt-get update -y \
     && apt-get install -y sudo tzdata \
+    && apt install locales \
+    && locale-gen en_US.UTF-8 \
     && useradd -ms /bin/bash -d /home/user user --uid $USER_UID --gid $USER_GID \
     && usermod -aG sudo user \
     && echo 'user ALL=NOPASSWD: ALL' >> /etc/sudoers \
@@ -36,7 +41,7 @@ RUN apt-get update -y \
 
 USER $USER_UID
 ENV HOME=/home/user
-
+ENV LANG=en_US.UTF-8
 # Todo (krfricke): Move to latest miniconda version once we stop building
 
 # images for Python 3.10.10
@@ -52,7 +57,7 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     curl \
     screen \
     && wget \
-    --quiet "https://repo.anaconda.com/miniconda/Miniconda3-py39_23.3.1-0-Linux-${HOSTTYPE}.sh" \
+    --quiet "https://repo.anaconda.com/miniconda/Miniconda3-${PYTHON_VERSION}-Linux-${HOSTTYPE}.sh" \
     -O /tmp/miniconda.sh \
     # -b           run install in batch mode (without manual intervention),
     # it is expected the license terms (if any) are agreed upon
