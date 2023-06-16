@@ -16,7 +16,7 @@ fi
 
 
 
-if [ $?=0 ]; then
+if [ $? -ne 0 ]; then
     echo "build success."
 else
     echo "build failure."
@@ -25,7 +25,7 @@ fi
 
 docker push $image
 
-if [ $?=0 ]; then
+if [ $? -ne 0 ]; then
     echo "push success."
 else
     echo "push failure."
