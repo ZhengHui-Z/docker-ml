@@ -12,8 +12,7 @@ FROM ${BASE_IMAGE}
 
 
 ADD sources.list /etc/apt/sources.list
-ARG BASE_IMAGE
-
+ARG PYTHON_VERSION
 # If this arg is not "autoscaler" then no autoscaler requirements will be included
 
 ENV TZ=Asia/Shanghai
@@ -31,8 +30,6 @@ ARG USER_GID=100
 
 RUN apt-get update -y \
     && apt-get install -y sudo tzdata \
-    && apt install locales \
-    && locale-gen en_US.UTF-8 \
     && useradd -ms /bin/bash -d /home/user user --uid $USER_UID --gid $USER_GID \
     && usermod -aG sudo user \
     && echo 'user ALL=NOPASSWD: ALL' >> /etc/sudoers \
@@ -41,7 +38,7 @@ RUN apt-get update -y \
 
 USER $USER_UID
 ENV HOME=/home/user
-ENV LANG=en_US.UTF-8
+
 # Todo (krfricke): Move to latest miniconda version once we stop building
 
 # images for Python 3.10.10
@@ -56,6 +53,8 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     wget \
     curl \
     screen \
+    locales \
+    && sudo locale-gen en_US.UTF-8 \
     && wget \
     --quiet "https://repo.anaconda.com/miniconda/Miniconda3-${PYTHON_VERSION}-Linux-${HOSTTYPE}.sh" \
     -O /tmp/miniconda.sh \
@@ -77,5 +76,7 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     && $HOME/anaconda3/bin/pip uninstall -y dask \
     && sudo rm -rf /var/lib/apt/lists/* \
     && sudo apt-get clean
+
+ENV LANG=en_US.UTF-8
 
 WORKDIR $HOME
