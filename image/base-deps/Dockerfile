@@ -3,23 +3,14 @@
 # The GPU options are NVIDIA CUDA developer images
 
 ARG BASE_IMAGE="nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04"
-ARG HOSTTYPE=${HOSTTYPE:-x86_64}
-
-ARG USER_UID=1000
-ARG USER_GID=100
-ARG PYTHON_VERSION
 # ARG PYTHON_VERSION=latest
-# ARG PYTHON_VERSION=py39_23.3.1-0
-# ARG PYTHON_VERSION=py38_23.1.0-1
-
-
 FROM ${BASE_IMAGE}
 
 # FROM directive resets ARG
 
 
 ADD sources.list /etc/apt/sources.list
-
+ARG PYTHON_VERSION
 # If this arg is not "autoscaler" then no autoscaler requirements will be included
 
 ENV TZ=Asia/Shanghai
@@ -27,7 +18,13 @@ ENV TZ=Asia/Shanghai
 # TODO(ilr) $HOME seems to point to result in "" instead of "/home/user"
 
 ENV PATH "/home/user/anaconda3/bin:$PATH"
+ARG DEBIAN_FRONTEND=noninteractive
+# ARG PYTHON_VERSION=3.10.10
 
+ARG HOSTTYPE=${HOSTTYPE:-x86_64}
+
+ARG USER_UID=1000
+ARG USER_GID=100
 
 RUN apt-get update -y \
     && apt-get install -y sudo tzdata \
