@@ -51,6 +51,7 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     wget \
     curl \
     screen \
+    openssh-server \
     locales \
     && sudo locale-gen en_US.UTF-8 \
     && wget \
