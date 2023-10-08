@@ -27,7 +27,7 @@ RUN $HOME/anaconda3/bin/pip --no-cache-dir install protobuf \
     jupyterlab \
     ipywidgets
 
-COPY ./flash-attention /tmp/flash-attention
+COPY ./flash-attention-2.3.0 /tmp/flash-attention
 
 USER root
 
