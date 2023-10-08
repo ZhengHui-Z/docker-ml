@@ -9,7 +9,7 @@ FROM ${BASE_IMAGE}
 # FROM directive resets ARG
 
 
-ADD sources.list /etc/apt/sources.list
+COPY sources.list /etc/apt/sources.list
 ARG PYTHON_VERSION
 # If this arg is not "autoscaler" then no autoscaler requirements will be included
 
@@ -42,7 +42,7 @@ ENV HOME=/home/user
 # images for Python 3.10.10
 
 # <https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${HOSTTYPE}.sh>
-ADD pip.conf /home/user/.pip/pip.conf
+COPY pip.conf /home/user/.pip/pip.conf
 
 RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     && sudo apt-get install -y \
@@ -75,6 +75,8 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     && $HOME/anaconda3/bin/pip uninstall -y dask \
     && sudo rm -rf /var/lib/apt/lists/* \
     && sudo apt-get clean
+
+RUN $HOME/anaconda3/bin/pip install torch --no-cache-dir --index-url https://download.pytorch.org/whl/cu118
 
 ENV LANG=en_US.UTF-8
 

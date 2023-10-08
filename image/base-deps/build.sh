@@ -10,7 +10,8 @@ fi
 
 if [ $PY_VERSION = "3.10" ] || [ $PY_VERSION = "3.9" ] || [ $PY_VERSION = "3.8" ]; then
     echo "build 11.8.0-cudnn8-devel-ubuntu20.04-python${PY_VERSION}";
-    IMAGE='zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python${PY_VERSION}';
+    IMAGE="zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python${PY_VERSION}";
+    # --no-cache 
     docker build --build-arg PYTHON_VERSION=latest -t $IMAGE .;
 else
     echo "PY_VERSION must be set to 3.10 | 3.9 | 3.8";
