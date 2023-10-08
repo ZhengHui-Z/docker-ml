@@ -21,4 +21,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build --build-arg BASE_IMAGE=zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python3.10 -f image/llm/with-flash-attention . --file Dockerfile --tag zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python3.10-llm-flash-$(date +%s)
+      run: docker build --build-arg BASE_IMAGE=zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python3.10 -f ./image/llm/with-flash-attention . --file Dockerfile --tag zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python3.10-llm-flash-$(date +%s)
