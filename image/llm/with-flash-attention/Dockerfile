@@ -6,8 +6,6 @@ ARG BASE_IMAGE
 # ARG PYTHON_VERSION=latest
 FROM ${BASE_IMAGE}
 
-RUN pip install torch --no-cache-dir --index-url https://download.pytorch.org/whl/cu118
-
 RUN $HOME/anaconda3/bin/pip --no-cache-dir install protobuf \
     transformers==4.34.0 \
     cpm_kernels \

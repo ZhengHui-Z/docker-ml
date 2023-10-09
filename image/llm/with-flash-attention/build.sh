@@ -13,7 +13,7 @@ if [ $PY_VERSION = "3.10" ] || [ $PY_VERSION = "3.9" ] || [ $PY_VERSION = "3.8" 
     echo "build 11.8.0-cudnn8-devel-ubuntu20.04-python${PY_VERSION}-llm-flash"
     IMAGE="zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python${PY_VERSION}-llm-flash"
     # --no-cache
-    docker build --build-arg BASE_IMAGE=zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python$PY_VERSION -t $IMAGE .
+    docker build --no-cache --build-arg BASE_IMAGE=zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python$PY_VERSION -t $IMAGE .
 else
     exit 1
 fi
