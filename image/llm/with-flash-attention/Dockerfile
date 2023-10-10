@@ -29,9 +29,10 @@ COPY ./flash-attention-2.3.0 /tmp/flash-attention
 
 USER root
 
-RUN $HOME/anaconda3/bin/pip --no-cache-dir install /tmp/flash-attention \
-    && $HOME/anaconda3/bin/pip --no-cache-dir install /tmp/flash-attention/csrc/layer_norm \
-    && $HOME/anaconda3/bin/pip --no-cache-dir install /tmp/flash-attention/csrc/rotary \
+RUN $HOME/anaconda3/bin/pip install --no-cache-dir flash-attn==2.3.0 --no-build-isolation \
+    # $HOME/anaconda3/bin/pip --no-cache-dir install /tmp/flash-attention \
+    # && $HOME/anaconda3/bin/pip --no-cache-dir install /tmp/flash-attention/csrc/layer_norm \
+    # && $HOME/anaconda3/bin/pip --no-cache-dir install /tmp/flash-attention/csrc/rotary \
     && sudo rm -rf /tmp/flash-attention \
     && $HOME/anaconda3/bin/conda clean -y --all \
     && sudo rm -rf /var/lib/apt/lists/* \
