@@ -9,8 +9,8 @@ FROM ${BASE_IMAGE}
 
 # RUN pip install torch --no-cache-dir --index-url https://download.pytorch.org/whl/cu118
 
-RUN $HOME/anaconda3/bin/pip --no-cache-dir install protobuf \
-    transformers==4.34.0 \
+RUN $HOME/anaconda3/bin/pip install protobuf \
+    transformers>=4.37.0 \
     cpm_kernels \
     mdtex2html \
     sentencepiece \
@@ -22,13 +22,13 @@ RUN $HOME/anaconda3/bin/pip --no-cache-dir install protobuf \
     tiktoken \
     einops \
     transformers_stream_generator==0.0.4 \
-    auto-gptq==0.4.2 \
+    auto-gptq \
     optimum \
     bitsandbytes \
     jupyterlab \
     ipywidgets \
-    && sudo rm -rf /tmp/flash-attention \
     && $HOME/anaconda3/bin/conda clean -y --all \
     && sudo rm -rf /var/lib/apt/lists/* \
     && sudo apt-get clean
+
 USER user

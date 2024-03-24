@@ -1,19 +1,23 @@
 #!/bin/bash
 
+unset  http_proxy
+
+unset https_proxy
 
 if [ $# = 1 ]; then
     PY_VERSION=$1
 else
-    echo "set PY_VERSION to 3.10."
-    PY_VERSION="3.10"
+    echo "set PY_VERSION to 310."
+    PY_VERSION="310"
 fi
 
-if [ $PY_VERSION = "3.10" ] || [ $PY_VERSION = "3.9" ] || [ $PY_VERSION = "3.8" ]; then
-    echo "build 11.8.0-cudnn8-devel-ubuntu20.04-python${PY_VERSION}-llm"
-    IMAGE="zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python${PY_VERSION}-llm"
+if [ $PY_VERSION = "310" ] || [ $PY_VERSION = "39" ] || [ $PY_VERSION = "38" ]; then
+    echo "build 11.8.0-cudnn8-devel-ubuntu20.04-py${PY_VERSION}-llm"
+    IMAGE="zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-py${PY_VERSION}-llm"
     # --no-cache
-    docker build --build-arg BASE_IMAGE=zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-python$PY_VERSION -t $IMAGE .
+    docker build --build-arg BASE_IMAGE=zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-py$PY_VERSION -t $IMAGE .
 else
+    echo "PY_VERSION must be set to 310 | 39 | 38";
     exit 1   
 fi
 

@@ -42,7 +42,7 @@ ENV HOME=/home/user
 # images for Python 3.10.10
 
 # <https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${HOSTTYPE}.sh>
-COPY pip.conf /home/user/.pip/pip.conf
+# COPY pip.conf /home/user/.pip/pip.conf
 
 RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     && sudo apt-get install -y \
@@ -76,7 +76,7 @@ RUN sudo apt-get update -y && sudo apt-get upgrade -y \
     && sudo rm -rf /var/lib/apt/lists/* \
     && sudo apt-get clean
 
-RUN $HOME/anaconda3/bin/pip install torch --no-cache-dir --index-url https://download.pytorch.org/whl/cu118
+RUN $HOME/anaconda3/bin/pip install torch==2.0.1 --no-cache-dir --index-url https://download.pytorch.org/whl/cu118
 
 ENV LANG=en_US.UTF-8
 
