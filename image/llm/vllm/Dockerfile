@@ -7,23 +7,17 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 
-
-COPY vllm-0.3.3+cu118-cp310-cp310-manylinux1_x86_64.whl /tmp/vllm-0.3.3+cu118-cp310-cp310-manylinux1_x86_64.whl
-
 RUN $HOME/anaconda3/bin/pip install --upgrade pip
 
-RUN $HOME/anaconda3/bin/pip install --no-cache-dir /tmp/vllm-0.3.3+cu118-cp310-cp310-manylinux1_x86_64.whl \
-    && sudo rm /tmp/vllm-0.3.3+cu118-cp310-cp310-manylinux1_x86_64.whl
+RUN wget -O /tmp/vllm-0.4.0.post1+cu118-cp310-cp310-manylinux1_x86_64.whl https://github.com/vllm-project/vllm/releases/download/v0.4.0.post1/vllm-0.4.0.post1+cu118-cp310-cp310-manylinux1_x86_64.whl \
+    && $HOME/anaconda3/bin/pip install --no-cache-dir /tmp/vllm-0.4.0.post1+cu118-cp310-cp310-manylinux1_x86_64.whl \
+    && sudo rm /tmp/vllm-0.4.0.post1+cu118-cp310-cp310-manylinux1_x86_64.whl
 
 RUN $HOME/anaconda3/bin/pip install -U --no-cache-dir pydantic
 
-RUN git clone https://github.com/lm-sys/FastChat.git \
-    && $HOME/anaconda3/bin/pip install -e "FastChat[model_worker,webui]" \
-    && sudo rm -rf FastChat
-
-
+# xformers==0.0.23
 RUN $HOME/anaconda3/bin/pip uninstall torch -y \
-    && $HOME/anaconda3/bin/pip install --no-cache-dir -U xformers==0.0.23 --index-url https://download.pytorch.org/whl/cu118
+    && $HOME/anaconda3/bin/pip install --no-cache-dir -U xformers --index-url https://download.pytorch.org/whl/cu118
 
 RUN $HOME/anaconda3/bin/conda clean -y --all \
     && sudo rm -rf /var/lib/apt/lists/* \
