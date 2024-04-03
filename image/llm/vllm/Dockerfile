@@ -13,7 +13,7 @@ RUN wget -O /tmp/vllm-0.4.0.post1+cu118-cp310-cp310-manylinux1_x86_64.whl https:
     && $HOME/anaconda3/bin/pip install --no-cache-dir /tmp/vllm-0.4.0.post1+cu118-cp310-cp310-manylinux1_x86_64.whl \
     && sudo rm /tmp/vllm-0.4.0.post1+cu118-cp310-cp310-manylinux1_x86_64.whl
 
-RUN $HOME/anaconda3/bin/pip install -U --no-cache-dir pydantic
+RUN $HOME/anaconda3/bin/pip install --no-cache-dir pydantic>=2.6.4
 
 # xformers==0.0.23
 RUN $HOME/anaconda3/bin/pip uninstall torch -y \
