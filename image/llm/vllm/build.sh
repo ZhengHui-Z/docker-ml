@@ -10,8 +10,10 @@ else
     PY_VERSION="310"
 fi
 
+DATE=$(date +"%Y%m%d")
+
 if [ $PY_VERSION = "310" ] || [ $PY_VERSION = "39" ] || [ $PY_VERSION = "38" ]; then
-    IMAGE="zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-py${PY_VERSION}-vllm"
+    IMAGE="zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-py${PY_VERSION}-vllm-${DATE}"
     echo "${IMAGE}"
     # --no-cache
     docker build --build-arg BASE_IMAGE=zhenghuiz/cuda:11.8.0-cudnn8-devel-ubuntu20.04-py$PY_VERSION-llm -t $IMAGE .
